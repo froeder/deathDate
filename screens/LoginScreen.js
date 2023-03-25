@@ -91,7 +91,12 @@ export const LoginScreen = ({ navigation }) => {
               </>
             )}
           </Formik>
-          
+          <Button
+            style={styles.borderlessButtonContainer}
+            borderless
+            title={'Como funciona?'}
+            onPress={() => navigation.navigate('HowItWorksScreen')}
+          />
           <Button
             style={styles.borderlessButtonContainer}
             borderless
@@ -109,7 +114,7 @@ export const LoginScreen = ({ navigation }) => {
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Expo Firebase Starter App (based on managed workflow)
+          Aplicativo com fins recreativos, não o leve a sério.
         </Text>
       </View>
     </>
@@ -159,6 +164,7 @@ const styles = StyleSheet.create({
   borderlessButtonContainer: {
     marginTop: 16,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: "#000"
   }
 });
