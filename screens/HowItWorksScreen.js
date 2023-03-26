@@ -36,18 +36,22 @@ export const HowItWorksScreen = ({ navigation }) => {
             Os cálculos são baseados em estudos científicos e não são 100% confiáveis. Baseados em estatísticas, a média de vida de um brasileiro é de 75 anos, mas isso não quer dizer que você vai morrer com 75 anos, pode ser que você viva mais ou menos que isso. 
           </Text>
           <Text style={styles.footerText}>
-            E se você quiser saber quanto tempo ainda lhe resta, você pode usar o Death Date para saber quanto tempo ainda lhe resta de vida para fazer as coisas que você quer fazer, como viajar, se casar, ter filhos, etc.
+            E se você quiser saber quanto tempo ainda lhe resta, você pode usar o Death Date para isso, e pode decidir fazer ou não as coisas que você quer fazer, como viajar, se casar, ter filhos, plantar uma árvore, escrever um livro e etc.
 
             E muito mais coisas que você ainda não pensou em fazer.
           </Text>
           <Text style={styles.footerText}>
-            E além disso, após receber os resultados, você pode compartilhar com seus amigos e familiares para que eles também saibam quanto tempo ainda lhe resta de vida.
+            E além disso, após receber os resultados, você pode compartilhar com seus amigos e familiares para que eles também saibam quanto tempo ainda lhe resta de vida. 
+            Você pode também sincronizar os resultados seu com o de seus amigos ou família para que vocês possam ver quanto tempo ainda lhe resta de vida juntos.
           </Text>
           <Text style={styles.footerText}>
             A melhor parte é que baseado no seu resultado, te damos dicas de como aumentar a sua expectativa de vida, como por exemplo, se você fuma, você pode parar de fumar, se você bebe, você pode parar de beber, se você come muito, você pode comer menos, se você não faz exercícios, você pode começar a fazer exercícios, etc.
             </Text>
           <Text style={styles.footerText}>
             O Death Date não é responsável por qualquer morte que ocorra após o uso do aplicativo.
+          </Text>
+          <Text style={styles.footerTextSlogan}>
+            Death Date, por que amanhã pode ser tarde demais.
           </Text>
           <Button
             style={styles.borderlessButtonContainer}
@@ -89,6 +93,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: Colors.orange, 
     marginTop: 10
+  },
+  footerTextSlogan: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: Colors.orange,
+    marginTop: 10,
+    textAlign: 'center'
   },
   button: {
     width: '100%',
