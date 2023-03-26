@@ -20,6 +20,7 @@ export const LoginScreen = ({ navigation }) => {
       setErrorState(error.message)
     );
   };
+  
   return (
     <>
       <View isSafe style={styles.container}>

@@ -32,7 +32,7 @@ const CountdownTimer = ({ birthDate, lifeExpectancy }) => {
   const remainingSeconds = remainingTime % SECONDS_IN_A_MINUTE;
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ justifyContent: 'center' }}>
       <Card>
         <Card.Title>Tempo Restante</Card.Title>
         <Card.Divider />

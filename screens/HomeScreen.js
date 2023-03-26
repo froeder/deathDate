@@ -25,6 +25,7 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'space-between',
     padding: 10
   },
    title: {
