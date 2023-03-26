@@ -5,7 +5,7 @@ import CountdownTimer from './CountdownTimer';
 
 import { auth, Colors } from '../config';
 
-export const HomeScreen = () => {
+export const ProfileScreen = () => {
 
   const handleLogout = () => {
     signOut(auth).catch(error => console.log('Error logging out: ', error));
