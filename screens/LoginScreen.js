@@ -20,7 +20,6 @@ export const LoginScreen = ({ navigation }) => {
       setErrorState(error.message)
     );
   };
-  
   return (
     <>
       <View isSafe style={styles.container}>
@@ -92,12 +91,7 @@ export const LoginScreen = ({ navigation }) => {
               </>
             )}
           </Formik>
-          <Button
-            style={styles.borderlessButtonContainer}
-            borderless
-            title={'Como funciona?'}
-            onPress={() => navigation.navigate('HowItWorksScreen')}
-          />
+          
           <Button
             style={styles.borderlessButtonContainer}
             borderless
@@ -115,7 +109,7 @@ export const LoginScreen = ({ navigation }) => {
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Aplicativo com fins recreativos, não o leve a sério.
+          Aplicativo com fins recreativos, não leve a sério.
         </Text>
       </View>
     </>

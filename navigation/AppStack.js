@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-import { HomeScreen, HowItWorksScreen , ProfileScreen} from '../screens';
+import { HomeScreen, HowItWorksScreen , ProfileScreen , ResultsScreen} from '../screens';
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
@@ -35,7 +35,7 @@ export const AppStack = () => {
       />
       <Tab.Screen 
         name="Meus Resultados" 
-        component={HowItWorksScreen} 
+        component={ResultsScreen} 
         options={{tabBarIcon: ({ color, size }) => (
         <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
         ),}} 

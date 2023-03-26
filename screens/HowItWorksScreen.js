@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: '400',
     color: Colors.orange, 
     marginTop: 10
   },

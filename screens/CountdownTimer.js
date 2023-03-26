@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text , StyleSheet} from 'react-native';
 import { Card } from 'react-native-elements';
 
 
@@ -34,10 +34,12 @@ const CountdownTimer = ({ birthDate, lifeExpectancy }) => {
   return (
     <View style={{ justifyContent: 'center' }}>
       <Card>
-        <Card.Title>Tempo Restante</Card.Title>
+        <Card.Title>Seu tempo restante</Card.Title>
+        
         <Card.Divider />
         {remainingTime !== null ? (
-          <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>
+          <Text style={styles.text}>
+            <Card.Image style={styles.image} source={require('../assets/tombstone.png')} />
             {formatTimeUnit(remainingYears, 'ano')}, {formatTimeUnit(remainingMonths, 'mês')},{' '}
             {formatTimeUnit(remainingDays, 'dia')}, {formatTimeUnit(remainingHours, 'hora')},{' '}
             {formatTimeUnit(remainingMinutes, 'minuto')}, {formatTimeUnit(remainingSeconds, 'segundo')}
@@ -45,10 +47,20 @@ const CountdownTimer = ({ birthDate, lifeExpectancy }) => {
         ) : (
           <Text>Calculando...</Text>
         )}
-        <Text>Outras informações que você julgar útil</Text>
+        <Text>Aproveite o hoje, amanhã pode ser tarde demais. Tic Tac ...</Text>
       </Card>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: { fontSize: 24, fontWeight: 'bold', marginBottom: 10 },
+  image:{
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    marginRight: 10
+  }
+});
 
 export default CountdownTimer;
