@@ -3,28 +3,35 @@ import { Text, StyleSheet, Switch } from "react-native";
 import { Formik } from "formik";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Picker } from "@react-native-picker/picker";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 
-import { View, TextInput, Logo, Button } from "../components";
+import { View, TextInput, Button } from "../components";
 import { Colors, auth } from "../config";
+import { db } from "../config/firebase";
 
 export const ResultsScreen = ({ navigation }) => {
-  const handleSave = (values) => {
-    console.log(values);
-    const user = auth.currentUser;
-    console.log(user.uid);
-    return;
-    db.collection("users")
-      .doc(user.uid)
-      .set(values)
-      .then(() => {
-        console.log("Data saved successfully!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  //handle save to save data in firestore
+  const handleSave1 = async (values) => {
+    //saveData("users", values);
+    try {
+      const docRef = await addDoc(collection(db, "users"), values);
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
-  const [value, setValue] = useState("");
+  const handleSave = async (values) => {
+    const uid = auth.currentUser.uid;
+    const userRef = doc(collection(db, "users"), uid);
+    try {
+      await setDoc(userRef, values);
+      console.log("Dados do usuário salvos com sucesso!");
+    } catch (error) {
+      console.error("Erro ao salvar dados do usuário:", error);
+    }
+  };
+
   const [gender, setGender] = useState(null);
 
   const formatDate = (text) => {
@@ -34,10 +41,6 @@ export const ResultsScreen = ({ navigation }) => {
       return `${match[1]}/${match[2]}/${match[3]}`;
     }
     return text;
-  };
-
-  const handleChangeText = (text) => {
-    setValue(formatDate(text));
   };
 
   const [selectedGender, setSelectedGender] = useState("masculino");
@@ -98,7 +101,7 @@ export const ResultsScreen = ({ navigation }) => {
         <Formik
           initialValues={{
             dateOfBirth: "",
-            gender: "masculimo",
+            gender: "masculino",
             height: "",
             weight: "",
             isSmoker: false,
