@@ -10,18 +10,9 @@ import { Colors, auth } from "../config";
 import { db } from "../config/firebase";
 
 export const ResultsScreen = ({ navigation }) => {
-  //handle save to save data in firestore
-  const handleSave1 = async (values) => {
-    //saveData("users", values);
-    try {
-      const docRef = await addDoc(collection(db, "users"), values);
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
   const handleSave = async (values) => {
+    console.log(values);
+
     const uid = auth.currentUser.uid;
     const userRef = doc(collection(db, "users"), uid);
     try {
@@ -33,6 +24,7 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   const [gender, setGender] = useState(null);
+  const [stateLivingAge, setStateLivingAge] = useState(null);
 
   const formatDate = (text) => {
     const cleaned = text.replace(/\D/g, "");
@@ -42,8 +34,6 @@ export const ResultsScreen = ({ navigation }) => {
     }
     return text;
   };
-
-  const [selectedGender, setSelectedGender] = useState("masculino");
 
   let STATES = [
     { name: "Rio Grande do Sul", age: 75 },
@@ -82,7 +72,7 @@ export const ResultsScreen = ({ navigation }) => {
       return 1;
     }
     return 0;
-  });
+  }).map((state) => ({ name: `${state.name} (${state.age})`, age: state.age }));
 
   const [selectedState, setSelectedState] = useState(null);
 
@@ -91,13 +81,11 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   return (
-    <View isSafe style={styles.container}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView enableOnAndroid={true}>
-        <View style={styles.logoContainer}>
-          <Text style={styles.screenTitle}>
-            Para começar, responda esse pequeno formulário
-          </Text>
-        </View>
+        <Text style={styles.screenTitle}>
+          Para começar, responda esse pequeno formulário
+        </Text>
         <Formik
           initialValues={{
             dateOfBirth: "",
@@ -116,6 +104,7 @@ export const ResultsScreen = ({ navigation }) => {
             hasCancer: false,
             hasHepatitis: false,
             stateLiving: "",
+            stateLivingAge: "",
           }}
           onSubmit={handleSave}
         >
@@ -151,12 +140,16 @@ export const ResultsScreen = ({ navigation }) => {
               </View>
               <Text style={styles.footerText}>Altura em cm:</Text>
               <TextInput
+                keyboardType="numeric"
+                inputMode="numeric"
                 onChangeText={handleChange("height")}
                 onBlur={handleBlur("height")}
                 value={values.height}
               />
               <Text style={styles.footerText}>Peso em kg:</Text>
               <TextInput
+                keyboardType="numeric"
+                inputMode="numeric"
                 onChangeText={handleChange("weight")}
                 onBlur={handleBlur("weight")}
                 value={values.weight}
@@ -165,6 +158,8 @@ export const ResultsScreen = ({ navigation }) => {
                 Pratica exercícios? Se sim coloque quantos minutos por semana:
               </Text>
               <TextInput
+                keyboardType="numeric"
+                inputMode="numeric"
                 onChangeText={handleChange("exercises")}
                 onBlur={handleBlur("exercises")}
                 value={values.exercises}
@@ -176,6 +171,11 @@ export const ResultsScreen = ({ navigation }) => {
                 onValueChange={(value) => {
                   setFieldValue("stateLiving", value);
                   handleStateChange(value);
+                  const selectedStateObject = STATES.find(
+                    (state) => state.name === value
+                  );
+                  setStateLivingAge(selectedStateObject?.age);
+                  setFieldValue("stateLivingAge", stateLivingAge);
                 }}
                 style={styles.picker}
               >

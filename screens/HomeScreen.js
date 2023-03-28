@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    padding: 10,
+    paddingHorizontal: 12,
   },
   title: {
     fontSize: 24,
