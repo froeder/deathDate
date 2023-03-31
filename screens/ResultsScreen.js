@@ -8,10 +8,8 @@ import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { View, TextInput, Button } from "../components";
 import { Colors, auth } from "../config";
 import { db } from "../config/firebase";
-import { ScrollView } from "react-native-gesture-handler";
 
 export const ResultsScreen = ({ navigation }) => {
-  //function to get data from firestore using the user id
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -32,8 +30,6 @@ export const ResultsScreen = ({ navigation }) => {
       console.log("No such document!");
     }
     setLoading(false);
-    console.log("UserData");
-    console.log(userData);
   };
 
   const handleSave = async (values) => {
