@@ -50,6 +50,36 @@ export const HomeScreen = () => {
     setLoading(false);
   };
 
+  const calculateLifeExpectancy = () => {
+    let lifeExpectancy = userData.stateLivingAge;
+
+    if (userData.smoke) lifeExpectancy -= 10;
+    if (userData.exercises >= 10 && userData.exercises <= 15)
+      lifeExpectancy += 3;
+    if (userData.exercises >= 16) lifeExpectancy += 6;
+    if (userData.exercises < 5) lifeExpectancy -= 5;
+
+    if (userData.gender == "masculino" && userData.isSomer == true)
+      lifeExpectancy -= 12;
+    if (userData.gender == "feminino" && userData.isSomer == true)
+      lifeExpectancy -= 10;
+
+    if (userData.isAlcoholic) lifeExpectancy -= 7.6;
+
+    if (userData.usesDrugs) lifeExpectancy -= 15;
+
+    if (userData.isAnxious || userData.hasDepression) lifeExpectancy -= 15;
+
+    if (userData.isDiabethic) lifeExpectancy -= 20;
+
+    //aqui
+    if (userData.hasHypertension) lifeExpectancy -= 16.5;
+
+    if (userData.hasHeartDisease) lifeExpectancy -= 8;
+
+    return lifeExpectancy;
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -61,7 +91,10 @@ export const HomeScreen = () => {
       {loading ? (
         <ActivityIndicator size={42} />
       ) : (
-        <CountdownTimer birthDate={birthDate} lifeExpectancy={lifeExpectancy} />
+        <CountdownTimer
+          birthDate={birthDate}
+          lifeExpectancy={calculateLifeExpectancy()}
+        />
       )}
 
       <Button title="Sair" onPress={handleLogout} />
