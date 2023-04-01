@@ -12,13 +12,13 @@ Não há necessidade de se preocupar ao usar o aplicativo, pois ele foi projetad
 
 Para utilizar o Death Date, basta baixar o aplicativo na loja de aplicativos do seu dispositivo. Se você tiver alguma dúvida ou sugestão, não hesite em entrar em contato conosco através do nosso suporte.
 
-##Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - React Native
 - Expo
 - Firebase
 
-## Como instalar
+# Como instalar
 
 - Faça o download do aplicativo na loja de aplicativos do seu dispositivo
 - Instale o aplicativo em seu dispositivo
