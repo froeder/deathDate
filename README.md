@@ -24,4 +24,4 @@ Para utilizar o Death Date, basta baixar o aplicativo na loja de aplicativos do 
 - Instale o aplicativo em seu dispositivo
 - Insira suas informações pessoais para obter uma estimativa do tempo de vida restante
 
-##Obrigado por escolher o Death Date!
+## Obrigado por escolher o Death Date!
