@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import {
   View,
   StyleSheet,
@@ -13,16 +13,31 @@ import { db } from "../config/firebase";
 
 import { auth, Colors } from "../config";
 
-export const HomeScreen = () => {
-  const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [birthDate, setBirthDate] = useState(null);
+type HomeScreenProps = {
+  navigation: any;
+};
 
-  const handleLogout = () => {
+type HomeScreenState = {
+  userData: any;
+  loading: boolean;
+  birthDate: Date | null;
+};
+
+class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
+  constructor(props: HomeScreenProps) {
+    super(props);
+    this.state = {
+      userData: {},
+      loading: true,
+      birthDate: null,
+    };
+  }
+
+  handleLogout = () => {
     signOut(auth).catch((error) => console.log("Error logging out: ", error));
   };
 
-  const convertDate = async (date) => {
+  convertDate = async (date: string) => {
     const dateArray = date.split("/");
     const year = dateArray[2];
     const month = dateArray[1];
@@ -30,28 +45,27 @@ export const HomeScreen = () => {
     return new Date(`${year}-${month}-${day}`);
   };
 
-  //function to get user data from firestore
-  const getUserData = async () => {
+  getUserData = async () => {
     const user = auth.currentUser;
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setUserData(docSnap.data());
+      this.setState({ userData: docSnap.data() });
       const dateOfBirth = docSnap.data().dateOfBirth;
-      const convertedDate = await convertDate(dateOfBirth);
-      setBirthDate(convertedDate);
+      const convertedDate = await this.convertDate(dateOfBirth);
+      this.setState({ birthDate: convertedDate });
     } else {
-      // doc.data() will be undefined in this case
       console.log("No such document!");
     }
 
-    setLoading(false);
+    this.setState({ loading: false });
   };
 
-  const calculateLifeExpectancy = () => {
-    let lifeExpectancy = userData.stateLivingAge;
+  calculateLifeExpectancy = () => {
+    let lifeExpectancy = this.state.userData.stateLivingAge;
+
+    const userData = { ...this.state.userData };
 
     if (userData.smoke) lifeExpectancy -= 10;
     if (userData.exercises >= 10 && userData.exercises <= 15)
@@ -72,35 +86,38 @@ export const HomeScreen = () => {
 
     if (userData.isDiabethic) lifeExpectancy -= 20;
 
-    //aqui
     if (userData.hasHypertension) lifeExpectancy -= 16.5;
 
     if (userData.hasHeartDisease) lifeExpectancy -= 8;
-
     return lifeExpectancy;
   };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  async componentDidMount() {
+    await this.getUserData();
+    this.props.navigation.addListener("focus", async () => {
+      await this.getUserData();
+    });
+  }
 
-  const lifeExpectancy = 75;
+  componentWillUnmount() {}
 
-  return (
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size={42} />
-      ) : (
-        <CountdownTimer
-          birthDate={birthDate}
-          lifeExpectancy={calculateLifeExpectancy()}
-        />
-      )}
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.state.loading ? (
+          <ActivityIndicator size={42} />
+        ) : (
+          <CountdownTimer
+            birthDate={this.state.birthDate}
+            lifeExpectancy={this.calculateLifeExpectancy()}
+          />
+        )}
 
-      <Button title="Sair" onPress={handleLogout} />
-    </View>
-  );
-};
+        <Button title="Sair" onPress={this.handleLogout} />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -125,3 +142,5 @@ const styles = StyleSheet.create({
     color: "gray",
   },
 });
+
+export default HomeScreen;

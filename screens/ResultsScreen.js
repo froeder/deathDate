@@ -161,7 +161,9 @@ export const ResultsScreen = ({ navigation }) => {
                       placeholder="dd/mm/yyyy"
                       keyboardType="numeric"
                       value={formatDate(values.dateOfBirth)}
-                      onChangeText={handleChange("dateOfBirth")}
+                      onChangeText={(text) =>
+                        setFieldValue("dateOfBirth", formatDate(text))
+                      }
                       onBlur={handleBlur("dateOfBirth")}
                     />
                     <View>
