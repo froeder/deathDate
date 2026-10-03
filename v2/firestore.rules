@@ -1,0 +1,30 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cada usuário só lê e escreve os próprios dados de saúde.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null
+                            && request.auth.uid == uid
+                            && request.resource.data.keys().hasOnly(['profile', 'updatedAt', 'createdAt', 'schemaVersion'])
+                            && request.resource.data.profile.birthDate is string
+                            && request.resource.data.profile.birthDate.size() == 10;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+
+      // Histórico de avaliações (para acompanhar a evolução dos hábitos).
+      match /history/{entryId} {
+        allow read, delete: if request.auth != null && request.auth.uid == uid;
+        allow create: if request.auth != null
+                      && request.auth.uid == uid
+                      && request.resource.data.keys().hasOnly(['createdAt', 'remainingYears', 'expectedAgeAtDeath', 'hazardRatio', 'age']);
+        allow update: if false;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
