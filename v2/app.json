@@ -13,6 +13,7 @@
     },
     "android": {
       "package": "com.frojho.deathdate",
+      "versionCode": 2,
       "adaptiveIcon": {
         "backgroundColor": "#0B0E14",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -38,6 +39,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "cdccdf8b-cc58-4811-8396-7d9c6ae9157a"
+      }
+    },
+    "owner": "froeder"
   }
 }

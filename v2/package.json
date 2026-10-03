@@ -50,7 +50,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "validate": "tsx scripts/validate-engine.ts"
+    "validate": "tsx scripts/validate-engine.ts",
+    "build:android": "eas build --platform android --profile production",
+    "build:preview": "eas build --platform android --profile preview",
+    "submit:android": "eas submit --platform android"
   },
   "private": true
 }
