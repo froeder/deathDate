@@ -12,7 +12,7 @@
       "bundleIdentifier": "com.frojho.deathdate"
     },
     "android": {
-      "package": "com.frojho.deathdate",
+      "package": "deathdate.froeder.com",
       "versionCode": 2,
       "adaptiveIcon": {
         "backgroundColor": "#0B0E14",
