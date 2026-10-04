@@ -21,6 +21,7 @@ export function Screen({ children, scroll = true, bottomInset = 0, contentStyle,
     paddingBottom: insets.bottom + space.xxl + bottomInset,
     paddingHorizontal: space.xl,
   };
+  const webStyle = Platform.OS === 'web' ? styles.webContainer : undefined;
 
   return (
     <View style={styles.root}>
@@ -35,14 +36,14 @@ export function Screen({ children, scroll = true, bottomInset = 0, contentStyle,
         {scroll ? (
           <ScrollView
             style={styles.flex}
-            contentContainerStyle={[padding, contentStyle]}
+            contentContainerStyle={[padding, webStyle, contentStyle]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
             {children}
           </ScrollView>
         ) : (
-          <View style={[styles.flex, padding, contentStyle]}>{children}</View>
+          <View style={[styles.flex, padding, webStyle, contentStyle]}>{children}</View>
         )}
       </KeyboardAvoidingView>
     </View>
@@ -52,6 +53,11 @@ export function Screen({ children, scroll = true, bottomInset = 0, contentStyle,
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   flex: { flex: 1 },
+  webContainer: {
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
+  },
   orb: { position: 'absolute', borderRadius: 999 },
   orbA: { width: 340, height: 340, top: -140, right: -120, backgroundColor: 'rgba(142,124,255,0.20)' },
   orbB: { width: 280, height: 280, top: 260, left: -160, backgroundColor: 'rgba(53,227,192,0.09)' },
